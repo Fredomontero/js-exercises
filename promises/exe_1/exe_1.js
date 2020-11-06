@@ -11,35 +11,45 @@ const tasks = [
 ];
 // only run two promises at a time
 const pool_size = 2;
-let results = [];
-let runningTasks = 0;
 /**
 *  Expect to get an array equal to tasks.length
 *  with the values or reasons for each of the promises.
 *
 *  [{value: 1}, {value:2}, {error: 'error'}, ...]
 */
-const runNextPromise = () => {
-   runningTasks++;
-   //Get the task
-   let task = tasks.shift();
-   console.log("Starting task: ", task);
-   task()
-   .then(res => {
-      console.log("Finishing task: ", res);
-      results.push(res);
-      if(tasks.length > 0)
-         runNextPromise();
-      else
-         return new Promise((resolve, reject) => resolve(results));
-   });
-}
 
-const runBatches = async (tasks, pool_size) => {
-   do{
-      runNextPromise();
-   }while(runningTasks < pool_size);
+export const runBatches = (tasks, pool_size) => {
+   return new Promise(resolve => {
+      let results = [];
+      let idx = 0;
+
+      const startPromise = () => {
+         console.log("IDX: ", idx);
+         if(idx === tasks.length) return;
+         console.log("Starting: ", tasks[idx]);
+         tasks[idx++]()
+         .then(result => {
+            console.log("Finishing: ", result);
+            results.push({value: result});
+            if(results.length === tasks.length)
+               resolve(results);
+            else
+               startPromise();
+         })
+         .catch(error => {
+            console.log("Finishing: ", error);
+            results.push({error: error});
+            if(results.length === tasks.length)
+               resolve(results);
+            else
+               startPromise();
+         })
+      }
+
+      for(let i = 0; i < pool_size; i++)
+         startPromise();
+   });
 };
 
 // runBatches(tasks, pool_size).then(console.log);
-runBatches();
+runBatches(tasks, pool_size).then(console.log);
