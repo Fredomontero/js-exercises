@@ -2,42 +2,41 @@ const { expect } = require('@jest/globals');
 const { queryRetry, handleSuccess, handleErrorOrMaxRetryExceeded, urlQuery } = require('./exe_2');
 jest.setTimeout(100000);
 
-test('Completion time should be around 4 seconds for maxRetry = 3 ;delay = 1000; useIncrement = false and ivalid URL' , async done => {
+test('Completion time should be around 3 seconds for maxRetry = 3 ;delay = 1000; useIncrement = false and ivalid URL' , async done => {
   let startTime, endTime;
   try{
     startTime = new Date();
-    await queryRetry(urlQuery('https://httpbin.org/ip545545'), 3, 1000, false)
+    await queryRetry(urlQuery('https://fake.com'), 3, 1000, false)
     done();
   }catch(error){
     endTime = new Date();
     let timeDiff = endTime - startTime;
-    expect(timeDiff).toBeGreaterThan(3500);
-    expect(timeDiff).toBeLessThan(4500);
+    expect(timeDiff).toBeGreaterThan(2750);
+    expect(timeDiff).toBeLessThan(3250);
     done()
   }
 });
 
-test('Completion time should be around 7 seconds for maxRetry = 3 ;delay = 1000; useIncrement = true and ivalid URL', async done => {
+test('Completion time should be around 6 seconds for maxRetry = 3 ;delay = 1000; useIncrement = true and ivalid URL', async done => {
   let startTime, endTime;
   try{
     startTime = new Date();
-    await queryRetry(urlQuery('https://httpbin.org/ip545545'), 3, 1000, true)
+    await queryRetry(urlQuery('https://fake.com'), 3, 1000, true)
     done();
   }catch(error){
     endTime = new Date();
     let timeDiff = endTime - startTime;
-    expect(timeDiff).toBeGreaterThan(6500);
-    expect(timeDiff).toBeLessThan(7500);
+    expect(timeDiff).toBeGreaterThan(5750);
+    expect(timeDiff).toBeLessThan(6250);
     done()
   }
 });
 
-test("Expect results to be { origin: '189.202.83.51' } if URL is 'https://httpbin.org/ip'", async done => {
+test("Expect results to be { status: 200, data: {name: 'Christian Montero'}} if URL is 'https://example.com/data'", async done => {
   try{
-    let results = await queryRetry(urlQuery('https://httpbin.org/ip'), 3, 1000, true);
-    let data = await results.json();
+    let data = await queryRetry(urlQuery('https://example.com/data'), 3, 1000, true);
     console.log(data);
-    expect(data).toMatchObject({ "origin": "189.202.83.51" })
+    expect(data).toMatchObject({ status: 200, data: {name: 'Christian Montero'} })
     done();
   }catch(error){done(error)}
 });

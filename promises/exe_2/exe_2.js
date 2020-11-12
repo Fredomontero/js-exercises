@@ -1,5 +1,4 @@
-const fetch = require('node-fetch');
-const URL = 'https://httpbin.org/ip';
+const fetch = require('./fetch');
  
 const maxRetry = 3;
 const useIncrement = false;
