@@ -13,7 +13,9 @@ const mergeArrays = (largeArray, smallArray) => {
     largeArray[index] = smallArray[smallPointer--]
   }
 }
- 
-mergeArrays(largeArray, smallArray);
-console.log(largeArray); // Expecting: [0,1,2,3,4,5,6,7,8,9]
-console.log(largeArraySize === largeArray.length)
+
+module.exports = mergeArrays;
+
+// mergeArrays(largeArray, smallArray);
+// console.log(largeArray); // Expecting: [0,1,2,3,4,5,6,7,8,9]
+// console.log(largeArraySize === largeArray.length)
