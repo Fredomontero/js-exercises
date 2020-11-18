@@ -5,7 +5,7 @@ test('After Merging [0,2,4,6,8] into [1,3,5,7,9], largeArraySize should be equal
   const largeArray = [1,3,5,7,9].concat(new Array(5));
   const smallArray = [0,2,4,6,8];
   const largeArraySize = largeArray.length;
-  // mergeArrays(largeArray, smallArray);
+  mergeArrays(largeArray, smallArray);
   expect(largeArraySize).toEqual(largeArray.length)
 });
 
