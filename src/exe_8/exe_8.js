@@ -1,18 +1,14 @@
 const oldObj = {
-  name: 'Sara',
-  gender: 'Apache Attack Helicopter',
-  address: {
-      location: {
-          city: 'SF',
-          state: 'CA'
-      },
-      preferredLocation: {
-          city: 'SF',
-          state: ['CA', 'MN']
-      },
-      other: undefined
-  },
-  numbers: [1, 2, 3]
+  name:"Ram",
+    age:27,
+    vehicles: {
+       car:"limousine",
+       bike:"ktm-duke",
+       airlines:{
+          lufthansa : "Air123",
+          British_airways : "Brt707"
+       }
+    }
 };
 
 /**
@@ -41,8 +37,10 @@ function flatten(oldObject, parentName){
   return flatObject;
 }
 
+module.exports = flatten;
+
 // flatten(oldObj, "oldObj");
-console.log(flatten(oldObj, "oldObj"));
+// console.log(flatten(oldObj, "oldObj"));
 /**
 *  expected output:
 *  {
