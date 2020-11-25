@@ -5,15 +5,15 @@
   * @param {String} parentName - Name of the parent
 */
 
-function flattenDeclarative(oldObject, parentName){
+function flattenFunctional(oldObject, parentName){
   let flatObject = {};
 
   for (let property in oldObject) {
     if (objectContainsProperty(oldObject, property)) {
-        if (isObject(oldObject)) {
-          let innerObject = flattenDeclarative(oldObject[property], parentName + '_' + property);
-          for(let prop in innerObject)
-            if(objectContainsProperty(innerObject, prop)) flatObject[prop] = innerObject[prop];
+        if (isObject(oldObject[property])) {
+          let temp = flattenFunctional(oldObject[property], parentName + '_' + property);
+          for(let prop in temp)
+            if(objectContainsProperty(temp, prop)) flatObject[prop] = temp[prop];
         } else {
             flatObject[parentName+"_"+property] =  oldObject[property];
         }
@@ -23,13 +23,24 @@ function flattenDeclarative(oldObject, parentName){
   return flatObject;
 }
 
+/**
+ * Function that verifies if the Object passed in the object argument has the property passed in the property argument
+ * 
+ * @param {Object} object - Object where property is going to be searched
+ * @param {Object|Number|String|[]} property - property to verify in object
+ */
 const objectContainsProperty = (object, property) => {
   return object.hasOwnProperty(property)
 }
 
+/**
+ * Function that verifies the type of the object passed as an argument, if it's an object but not an Array return true otherwise returns false
+ * 
+ * @param {Object|Number|String|[]} object - object
+ */
 const isObject = (object) => {
-  return typeof oldObject[property] === "object" && !(oldObject[property] instanceof Array)
+  return typeof object === "object" && !(object instanceof Array)
 }
 
 
-module.exports = flattenDeclarative;
+module.exports = flattenFunctional;
