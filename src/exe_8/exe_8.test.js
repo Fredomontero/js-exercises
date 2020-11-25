@@ -1,5 +1,5 @@
 const { expect } = require('@jest/globals');
-const flatten = require('./exe_8');
+const flatten = require('./exe_8_imperative');
 
 test('Should return a new object with the flatten properties of the input object', () => {
   const oldObj = {
@@ -17,7 +17,7 @@ test('Should return a new object with the flatten properties of the input object
         other: undefined
     }
   };
-  expect(flatten(oldObj, "oldObj")).toMatchObject({
+  expect(flatten.declarative(oldObj, "oldObj")).toMatchObject({
     oldObj_name: 'Sara',
     oldObj_gender: 'Apache Attack Helicopter',
     oldObj_address_location_city: 'SF',
@@ -41,7 +41,7 @@ test('Should return a new object with the flatten properties of the input object
          }
       }
   };
-  expect(flatten(oldObj, "oldObj")).toMatchObject({
+  expect(flatten.declarative(oldObj, "oldObj")).toMatchObject({
     oldObj_name: 'Ram',
     oldObj_age: 27,
     oldObj_vehicles_car: 'limousine',

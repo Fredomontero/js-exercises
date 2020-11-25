@@ -1,16 +1,3 @@
-const oldObj = {
-  name:"Ram",
-    age:27,
-    vehicles: {
-       car:"limousine",
-       bike:"ktm-duke",
-       airlines:{
-          lufthansa : "Air123",
-          British_airways : "Brt707"
-       }
-    }
-};
-
 /**
   * Function that recieves an object and return a new object with the flatten properties of the recivied object
   *
@@ -39,17 +26,3 @@ function flatten(oldObject, parentName){
 
 module.exports = flatten;
 
-// flatten(oldObj, "oldObj");
-// console.log(flatten(oldObj, "oldObj"));
-/**
-*  expected output:
-*  {
-*    oldObj_name: 'Sara',
-*    oldObj_gender: 'Apache Attack Helicopter',
-*    oldObj_address_location_city: 'SF',
-*    oldObj_address_location_state: 'CA',
-*    oldObj_address_preferredLocation_state: 'SF',
-*    oldObj_address_preferredLocation_city: ['CA', 'MN'],
-*    oldObj_address_other: undefined
-*  }
-*/
