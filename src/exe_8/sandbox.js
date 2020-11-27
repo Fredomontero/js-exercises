@@ -14,17 +14,17 @@ const data = {
   }
 };
 
-const flatten = (oldObject, parentName) => Object.entries(oldObject).reduce((accumulator, current) => {
-    if(isObject(current[1])){
-        let innerObject = flatten(current[1], parentName + '_' + current[0]);
-        for(const property in innerObject)
-            accumulator[property] = innerObject[property]
-    }else accumulator[`${parentName}_${current[0]}`] = current[1];
+const flatten = (object, parentName) => {
+    return iterate(object, parentName, {});
+}
+
+const iterate = (object, parentName, flatObject) => Object.entries(object)
+.reduce((accumulator, [key, value]) => {
+    if(isObject(value)) iterate(value, parentName + '_' + key, accumulator)
+    else accumulator[`${parentName}_${key}`] = value;
     return accumulator;
-}, {})
+}, flatObject)
 
 const isObject = (object) =>  typeof object === "object" && !(object instanceof Array)
 
-let result = flatten(data, 'data');
-console.log("RESULT");
-console.log(result);
+console.log(flatten(data, 'data'));
