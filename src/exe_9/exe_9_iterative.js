@@ -1,17 +1,16 @@
-const input = [1,2,3,[4,5,[6,[[7]],8]],[9,10]]
- 
-function flattenArray(input){
-  /* Your implementation goes here */
+/**
+ * Function that takes an Array as parameter in input and aggregate all the nested elements in nested arrays to the outter one
+ * 
+ * @param {Array} input - Array to be flatten
+ */
+function flattenArrayIterative(input){
   let index = 0;
-  while(input[index] !== undefined ){
-    if(input[index] instanceof Array) input.splice(index, 1, ...input[index])
+  let output = [...input];
+  while(output[index] !== undefined ){
+    if(output[index] instanceof Array) output.splice(index, 1, ...output[index])
     else index++;
   }
+  return output;
 }
 
-flattenArray(input);
-console.log(input);
-/**
-* expected output:
-* [1,2,3,4,5,6,7,8,9,10]
-*/
+module.exports = flattenArrayIterative;
