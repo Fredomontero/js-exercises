@@ -1,8 +1,5 @@
-/**
- * Function that takes an Array as parameter in input and aggregate all the nested elements in nested arrays to the outter one
- * 
- * @param {Array} input - Array to be flatten
- */
+const input = [1,2,3,[4,5,[6,[[7]],8]],[9,10]];
+
 function flattenArrayIterative(input){
   let output = [];
   let arrays = [];
@@ -26,4 +23,5 @@ function flattenArrayIterative(input){
   return output;
 }
 
-module.exports = flattenArrayIterative;
+let result =  flattenArrayIterative(input);
+console.log(result);
