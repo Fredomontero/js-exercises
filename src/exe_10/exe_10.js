@@ -1,20 +1,25 @@
+const TreeNode = require('./TreeNode');
+const buildTree = require('./buildTree');
 const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
-// const bTree = '(A,(B),(C))';
-
 
 /**
 * @param {String} tree  
 * @param {String} order  'infix' (default) | 'prefix' | 'postfix'
 */
-function printTree(tree, order) {
+function printTree(tree, order = "infix") {
 
   let binaryTree = buildTree(tree);
-  // printPrefix(binaryTree);
-  // printPostfix(binaryTree);
-  printInfix(binaryTree);
-
+  
+  if(order === 'infix') printInfix(binaryTree);
+  else if(order === 'prefix') printPrefix(binaryTree);
+  else printPostfix(binaryTree);
 }
 
+/**
+ * Function that prints a binary tree in a prefix order
+ * 
+ * @param {TreeNode} node - root node of a binary tree
+ */
 const printPrefix = (node) => {
   const traversePrefix = (node) => {
     if(!node) return;
@@ -25,6 +30,11 @@ const printPrefix = (node) => {
   traversePrefix(node);
 }
 
+/**
+ * Function that prints a binary tree in a postfix order
+ * 
+ * @param {TreeNode} node - root node of a binary tree
+ */
 const printPostfix = (node) => {
   const traversePostfix = (node) => {
     if(node.left) traversePostfix(node.left);
@@ -34,6 +44,11 @@ const printPostfix = (node) => {
   traversePostfix(node);
 }
 
+/**
+ * Function that prints a binary tree in an infix order
+ * 
+ * @param {TreeNode} node - root node of a binary tree
+ */
 const printInfix = (node) => {
   let queue = [];
   if(!node) return;
@@ -47,58 +62,4 @@ const printInfix = (node) => {
 
 }
 
-class TreeNode{
-  constructor(data){
-    this.data = data;
-    this.left = null;
-    this.right = null;
-  }
-}
-
-function buildTree(tree) {
-  
-  let index = 0;
-  let regex = /[A-Za-z0-9]/;
-
-  const buildTreeNode = (tree) => {
-
-    let node = null;
-    let value = '';
-    
-    if(index >= tree.length) return null;
-    if(tree[index] === '(') index++;
-    while(index < tree.length && regex.test(tree[index])){
-      value += tree[index];
-      index++;
-    }
-
-    if(value.length > 0) node = new TreeNode(value);
-    else return null;
-    
-    if(tree[index] === ','){
-      index++;
-      node.left = buildTreeNode(tree);
-    }
-
-    if(tree[index] === ')'){
-      index++;
-      return node;
-    }
-
-    if(tree[index] === ','){
-      index++;
-      node.right = buildTreeNode(tree);
-    }
-
-    if(tree[index] === ')'){
-      index++;
-      return node;
-    }
-
-    return node;
-  }
-
-  return buildTreeNode(tree);
-}
-
-printTree(bTree);
+printTree(bTree, 'postfix');
