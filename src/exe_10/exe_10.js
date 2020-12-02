@@ -1,6 +1,6 @@
 const TreeNode = require('./TreeNode');
 const buildTree = require('./buildTree');
-const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
+// const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
 
 /**
 * @param {String} tree  
@@ -8,11 +8,15 @@ const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
 */
 function printTree(tree, order = "infix") {
 
-  let binaryTree = buildTree(tree);
-  
-  if(order === 'infix') printInfix(binaryTree);
-  else if(order === 'prefix') printPrefix(binaryTree);
-  else printPostfix(binaryTree);
+  let regex = /[^A-Za-z0-9(),]/;
+  if(regex.test(tree)){
+    throw 'Invalid characters in the tree representation';
+  }else{
+    let binaryTree = buildTree(tree);
+    if(order === 'infix') return printInfix(binaryTree);
+    else if(order === 'prefix') return printPrefix(binaryTree);
+    else return printPostfix(binaryTree);
+  }
 }
 
 /**
@@ -21,13 +25,16 @@ function printTree(tree, order = "infix") {
  * @param {TreeNode} node - root node of a binary tree
  */
 const printPrefix = (node) => {
+  let result = [];
   const traversePrefix = (node) => {
     if(!node) return;
     console.log(node.data);
+    result.push(node.data);
     traversePrefix(node.left);
     traversePrefix(node.right);
   }
   traversePrefix(node);
+  return result;
 }
 
 /**
@@ -36,12 +43,15 @@ const printPrefix = (node) => {
  * @param {TreeNode} node - root node of a binary tree
  */
 const printPostfix = (node) => {
+  let result = [];
   const traversePostfix = (node) => {
     if(node.left) traversePostfix(node.left);
     if(node.right) traversePostfix(node.right)
     console.log(node.data);
+    result.push(node.data);
   }
   traversePostfix(node);
+  return result;
 }
 
 /**
@@ -51,15 +61,20 @@ const printPostfix = (node) => {
  */
 const printInfix = (node) => {
   let queue = [];
+  let result = [];
   if(!node) return;
   queue.push(node);
   while(queue.length){
     let temp = queue.shift();
     console.log(temp.data);
+    result.push(temp.data);
     if(temp.left) queue.push(temp.left);
     if(temp.right) queue.push(temp.right);
   }
+  return result;
 
 }
 
-printTree(bTree, 'postfix');
+module.exports = printTree;
+
+// printTree(bTree, 'postfix');
