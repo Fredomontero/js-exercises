@@ -23,26 +23,38 @@ function printTree(tree, order) {
       index++;
     }
 
-    if(value.length > 0) node = new TreeNode(value);
-    else return null;
+    if(value.length > 0){
+      node = new TreeNode(value);
+    }
+    else{
+      console.log("Returnign null at index: ", index);
+      console.log("Character: ", tree[index]);
+      return null;
+    }
     
     if(tree[index] === ','){
       index++;
+      console.log("Building left node of node: ", node);
+      console.log("at index: ", index)
       node.left = buildTreeNode(tree);
     }
 
     if(tree[index] === ')'){
       index++;
+      console.log("Returnign node", node);
       return node;
     }
 
     if(tree[index] === ','){
       index++;
+      console.log("Building right node of node: ", node);
+      console.log("at index: ", index)
       node.right = buildTreeNode(tree);
     }
 
     if(tree[index] === ')'){
       index++;
+      console.log("Returnign node", node);
       return node;
     }
 
