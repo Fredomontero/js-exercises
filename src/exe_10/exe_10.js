@@ -1,7 +1,6 @@
 const TreeNode = require('./TreeNode');
 const buildTree = require('./buildTree');
 
-
 /**
 * @param {String} tree  
 * @param {String} order  'infix' (default) | 'prefix' | 'postfix'
@@ -42,15 +41,15 @@ const printPrefix = (node) => {
  * 
  * @param {TreeNode} node - root node of a binary tree
  */
-const printPostfix = (node) => {
+const printInfix = (node) => {
   let result = [];
-  const traversePostfix = (node) => {
-    if(node.left) traversePostfix(node.left);
-    if(node.right) traversePostfix(node.right)
+  const traverseInfix = (node) => {
+    if(node.left) traverseInfix(node.left);
     console.log(node.data);
     result.push(node.data);
+    if(node.right) traverseInfix(node.right)
   }
-  traversePostfix(node);
+  traverseInfix(node);
   return result;
 }
 
@@ -59,21 +58,19 @@ const printPostfix = (node) => {
  * 
  * @param {TreeNode} node - root node of a binary tree
  */
-const printInfix = (node) => {
-  let queue = [];
+const printPostfix = (node) => {
+  console.log("postfix")
   let result = [];
-  if(!node) return;
-  queue.push(node);
-  while(queue.length){
-    let temp = queue.shift();
-    console.log(temp.data);
-    result.push(temp.data);
-    if(temp.left) queue.push(temp.left);
-    if(temp.right) queue.push(temp.right);
+  const traversePostfix = (node) => {
+    if(node.left) traversePostfix(node.left);
+    if(node.right) traversePostfix(node.right);
+    console.log(node.data);
+    result.push(node.data);
   }
+  traversePostfix(node);
   return result;
-
 }
 
 module.exports = printTree;
-
+// data = '(A,(B),)';
+// printTree(data, 'infix');

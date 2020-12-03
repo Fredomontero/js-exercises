@@ -7,10 +7,10 @@ test("Should return ['A','B','D','E','C','F','H','I','G','J'] for prefix order",
   expect(result).toEqual(['A','B','D','E','C','F','H','I','G','J']);
 });
 
-test("Should return ['A','B','C','D','E','F','G','H','I','J'] for infix order", () => {
+test("Should return ['D','B','E','A','H','F','I','C','G','J'] for prefix order", () => {
   const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
   let result =  printTree(bTree, 'infix');
-  expect(result).toEqual(['A','B','C','D','E','F','G','H','I','J']);
+  expect(result).toEqual(['D','B','E','A','H','F','I','C','G','J']);
 });
 
 test("Should return ['D','E','B','H','I','F','J','G','C','A'] for postfix order", () => {
@@ -44,4 +44,28 @@ test("Expect error to be thrown when input has invalid syntax", () => {
   }catch(error){
     expect(error).toBe('Syntax Error');
   }
+});
+
+test("Should return ['AA'] for infix order", () => {
+  const bTree = '(AA,)';
+  let result =  printTree(bTree, 'infix');
+  expect(result).toEqual(['AA']);
+});
+
+test("Should return ['A'] for infix order", () => {
+  const bTree = '(A,,)';
+  let result =  printTree(bTree, 'infix');
+  expect(result).toEqual(['A']);
+});
+
+test("Should return ['B','A'] for infix order", () => {
+  const bTree = '(A,(B),)';
+  let result =  printTree(bTree, 'infix');
+  expect(result).toEqual(['B','A']);
+});
+
+test("Should return ['B','C','A','R'] for infix order", () => {
+  const bTree = '(A,(B,,(C)),(R))';
+  let result =  printTree(bTree, 'infix');
+  expect(result).toEqual(['B','C','A','R']);
 });

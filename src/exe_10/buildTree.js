@@ -17,7 +17,7 @@ function buildTree(tree) {
     
     if(index >= tree.length) return null;
     if(tree[index] === '(') index++
-    else if(tree[index] !== ',') throw `Syntax Error`;
+    else if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error`;
 
     while(index < tree.length && regex.test(tree[index])){
       value += tree[index];
@@ -25,8 +25,8 @@ function buildTree(tree) {
     }
 
     if(value.length > 0) node = new TreeNode(value);
-    else if(tree[index] === ',') return null;
-    else throw `Syntax Error`;
+    else if(tree[index] === ',' || tree[index] === ')') return null;
+    else throw `Syntax Error`
 
     if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error`;
     
@@ -58,6 +58,7 @@ function buildTree(tree) {
   let res = buildTreeNode(tree);
   if(index === tree.length) return res;
   else throw `Syntax Error`
+    
   
 }
 
