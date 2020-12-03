@@ -17,7 +17,7 @@ function buildTree(tree) {
     
     if(index >= tree.length) return null;
     if(tree[index] === '(') index++
-    else if(tree[index] !== ',') throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
+    else if(tree[index] !== ',') throw `Syntax Error`;
 
     while(index < tree.length && regex.test(tree[index])){
       value += tree[index];
@@ -26,9 +26,9 @@ function buildTree(tree) {
 
     if(value.length > 0) node = new TreeNode(value);
     else if(tree[index] === ',') return null;
-    else throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
+    else throw `Syntax Error`;
 
-    if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
+    if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error`;
     
     if(tree[index] === ','){
       index++;
@@ -40,7 +40,7 @@ function buildTree(tree) {
       return node;
     }
 
-    if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
+    if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error`;
 
     if(tree[index] === ','){
       index++;

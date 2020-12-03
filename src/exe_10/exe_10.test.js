@@ -19,11 +19,29 @@ test("Should return ['D','E','B','H','I','F','J','G','C','A'] for postfix order"
   expect(result).toEqual(['D','E','B','H','I','F','J','G','C','A']);
 });
 
-test("Expect error to be thrown when input has invalid characters", () => {
+test("Expect error to be thrown when input has invalid syntax", () => {
   const bTree = '(A,(B,(D),*/*//765(E)),(C,(F,(H),(I)),(G,,(J))))*/*/*';
   try{
     let result =  printTree(bTree, 'postfix');
   }catch(error){
-    expect(error).toBe('Invalid characters in the tree representation');
+    expect(error).toBe('Syntax Error');
+  }
+});
+
+test("Expect error to be thrown when input has invalid syntax", () => {
+  const bTree = '(A,(B),(c)';
+  try{
+    let result =  printTree(bTree, 'postfix');
+  }catch(error){
+    expect(error).toBe('Syntax Error');
+  }
+});
+
+test("Expect error to be thrown when input has invalid syntax", () => {
+  const bTree = '(A,(B),,(c))';
+  try{
+    let result =  printTree(bTree, 'postfix');
+  }catch(error){
+    expect(error).toBe('Syntax Error');
   }
 });
