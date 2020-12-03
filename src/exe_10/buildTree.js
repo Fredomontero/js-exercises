@@ -16,14 +16,19 @@ function buildTree(tree) {
     let value = '';
     
     if(index >= tree.length) return null;
-    if(tree[index] === '(') index++;
+    if(tree[index] === '(') index++
+    else if(tree[index] !== ',') throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
+
     while(index < tree.length && regex.test(tree[index])){
       value += tree[index];
       index++;
     }
 
     if(value.length > 0) node = new TreeNode(value);
-    else return null;
+    else if(tree[index] === ',') return null;
+    else throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
+
+    if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
     
     if(tree[index] === ','){
       index++;
@@ -34,6 +39,8 @@ function buildTree(tree) {
       index++;
       return node;
     }
+
+    if(tree[index] !== ',' && tree[index] !== ')') throw `Syntax Error: invalid character "${tree[index]}" at position ${index}`;
 
     if(tree[index] === ','){
       index++;
@@ -48,7 +55,10 @@ function buildTree(tree) {
     return node;
   }
 
-  return buildTreeNode(tree);
+  let res = buildTreeNode(tree);
+  if(index === tree.length) return res;
+  else throw `Syntax Error`
+  
 }
 
 module.exports = buildTree;

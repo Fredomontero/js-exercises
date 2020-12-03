@@ -1,6 +1,7 @@
 const TreeNode = require('./TreeNode');
 const buildTree = require('./buildTree');
 // const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
+const bTree = '(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))';
 
 /**
 * @param {String} tree  
@@ -8,14 +9,14 @@ const buildTree = require('./buildTree');
 */
 function printTree(tree, order = "infix") {
 
-  let regex = /[^A-Za-z0-9(),]/;
-  if(regex.test(tree)){
-    throw 'Invalid characters in the tree representation';
-  }else{
+  let regex = /^\([A-Za-z0-9(),]+\)$/;
+  if(regex.test(tree) && bTree.match(/\(/g).length === bTree.match(/\)/g).length){
     let binaryTree = buildTree(tree);
     if(order === 'infix') return printInfix(binaryTree);
     else if(order === 'prefix') return printPrefix(binaryTree);
     else return printPostfix(binaryTree);
+  }else{
+    throw 'Invalid characters in the tree representation';
   }
 }
 
@@ -75,6 +76,6 @@ const printInfix = (node) => {
 
 }
 
-module.exports = printTree;
+// module.exports = printTree;
 
-// printTree(bTree, 'postfix');
+printTree(bTree, 'infix');
