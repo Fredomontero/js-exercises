@@ -72,5 +72,3 @@ const printPostfix = (node) => {
 }
 
 module.exports = printTree;
-// data = '(A,(B),)';
-// printTree(data, 'infix');
