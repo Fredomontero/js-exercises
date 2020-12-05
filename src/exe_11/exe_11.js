@@ -5,12 +5,12 @@
  */
 const querySelectorAll = (selector) => {
   let [parentSelector, childSelector] = selector.split("<");
-  const matches = document.querySelectorAll(parentSelector + " " + childSelector);
+  const matches = document.querySelectorAll(parentSelector + ">" + childSelector);
   let elements = Object.entries(matches).map(([key, item]) => item.parentElement);
   return elements;
 }
 
 module.exports = querySelectorAll;
 
-// result = querySelectorAll("div.note < input.is-complete[checked]");
+// result = querySelectorAll("div.note < .outter");
 // console.log("The result is: ", result);

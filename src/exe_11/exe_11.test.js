@@ -74,3 +74,93 @@ test("Should return the direct parent of the elements that match the selector", 
   }
 });
 
+test("It should only select direct parents that matches the selector", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="1" class="note">'+
+      '<div id="out" class="outter">'+
+        '<div class="inner">One</div>'+
+      '</div>'+
+    '</div>'+
+    '<div id="2" class="note">'+
+      '<div id="out" class="outter">'+
+        '<div class="inner">Two</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll("div.note < div.inner");
+  expect(parents.length).toBe(0);
+});
+
+test("It should work for any standard CSS selector", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="1" class="note">'+
+      '<div class="outter">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+    '<div id="2" class="note">'+
+      '<div class="outter">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll(".outter < .inner");
+  expect(parents.length).toBe(2);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveClass('outter');
+    expect(parents[i]).toContainHTML('<div class="outter"><div class="inner">Test</div></div>');
+  }
+});
+
+test("It should work for any standard CSS selector", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="one" class="note">'+
+      '<div class="outter">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+    '<div id="two" class="note">'+
+      '<div class="outter">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll("#one < .outter");
+  expect(parents.length).toBe(1);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveAttribute('id', 'one');
+    expect(parents[i]).toHaveClass('note');
+    expect(parents[i]).toContainHTML('<div class="outter"><div class="inner">Test</div></div>');
+  }
+});
+
+test("It should work for any standard CSS selector", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="1" class="someClass" category="electronics">'+
+      '<div class="cellphones">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+    '<div id="2" class="someClass" category="electronics">'+
+      '<div class="cellphones">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+    '<div id="3" class="someClass" category="electronics">'+
+      '<div class="headphones">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll("[category='electronics'] < .cellphones");
+  expect(parents.length).toBe(2);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveAttribute('id', `${i + 1}`);
+    expect(parents[i]).toHaveClass('someClass');
+    expect(parents[i]).toContainHTML('<div class="cellphones"><div class="inner">Test</div></div>');
+  }
+});
