@@ -5,12 +5,16 @@
  */
 const querySelectorAll = (selector) => {
   let [parentSelector, childSelector] = selector.split("<");
-  const matches = document.querySelectorAll(parentSelector + ">" + childSelector);
-  let elements = Object.entries(matches).map(([key, item]) => item.parentElement);
+  let matches = document.querySelectorAll(parentSelector + ">" + childSelector);
+  let elements = Object.entries(matches).map(([key, item]) => {
+    let parent = item.parentElement
+    while(!parent.matches(parentSelector)) parent = parent.parentElement;
+    return parent;
+  });
   return elements;
 }
 
 module.exports = querySelectorAll;
 
-// result = querySelectorAll("div.note < .outter");
+// result = querySelectorAll("#one < #two > #four");
 // console.log("The result is: ", result);

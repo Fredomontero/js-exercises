@@ -164,3 +164,24 @@ test("It should work for any standard CSS selector", () => {
     expect(parents[i]).toContainHTML('<div class="cellphones"><div class="inner">Test</div></div>');
   }
 });
+
+test("For query: '#one < #two > #three' should return <div id='one' class='parent'></div>", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="one" class="parent">'+
+      '<div id="two">'+
+        '<div id="three">'+
+          '<div id="four">Hello world</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll("#one < #two > #three");
+  expect(parents.length).toBe(1);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveAttribute('id', "one");
+    expect(parents[i]).toHaveClass('parent');
+    expect(parents[i]).toContainHTML('<div id="two"><div id="three"><div id="four">Hello world</div></div></div>');
+  }
+});
+
