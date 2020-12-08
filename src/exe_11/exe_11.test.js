@@ -185,3 +185,160 @@ test("For query: '#one < #two > #three' should return <div id='one' class='paren
   }
 });
 
+test("For query: '#one < #two  #four' should return <div id='one' class='container'></div>", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="one" class="container">'+
+      '<div id="two">'+
+        '<div id="three">'+
+          '<div id="four">Hello world</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll("#one < #two  #three");
+  expect(parents.length).toBe(1);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveAttribute('id', "one");
+    expect(parents[i]).toHaveClass('container');
+    expect(parents[i]).toContainHTML('<div id="two"><div id="three"><div id="four">Hello world</div></div></div>');
+  }
+});
+
+test("Works for very nested queries", () => {
+  document.body.innerHTML =
+  '<section>' +
+    '<div id="one" class="root">' +
+      '<div id="two">' +
+        '<div id="three">' +
+          '<div id="four">' +
+            '<div id="five">' +
+              '<div id="six">' +
+                '<div id="seven">Hello World</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</section>';
+  const parents = querySelectorAll("#one < #two > #three > #four > #five > #six > #seven");
+  expect(parents.length).toBe(1);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveAttribute('id', "one");
+    expect(parents[i]).toHaveClass('root');
+    expect(parents[i]).toContainHTML('<div id="two"><div id="three"><div id="four"><div id="five"><div id="six"><div id="seven">Hello World</div></div></div></div></div></div>');
+  }
+});
+
+test("Works for very nested queries", () => {
+  document.body.innerHTML =
+  '<section>' +
+    '<div id="one" class="root">' +
+      '<div id="two">' +
+        '<div id="three">' +
+          '<div id="four">' +
+            '<div id="five">' +
+              '<div id="six">' +
+                '<div id="seven">Hello World</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</section>';
+  const parents = querySelectorAll("#one < #two #three > #four #five > #six #seven");
+  expect(parents.length).toBe(1);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveAttribute('id', "one");
+    expect(parents[i]).toHaveClass('root');
+    expect(parents[i]).toContainHTML('<div id="two"><div id="three"><div id="four"><div id="five"><div id="six"><div id="seven">Hello World</div></div></div></div></div></div>');
+  }
+});
+
+test("It should work for any standard CSS selector", () => {
+  document.body.innerHTML =
+  '<section>'+
+    '<div id="one" class="note">'+
+      '<div class="outter">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+    '<div id="two" class="note">'+
+      '<div class="outter">'+
+        '<div class="inner">Test</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+  const parents = querySelectorAll(".note .outter < .inner");
+  expect(parents.length).toBe(2);
+  for(let i = 0; i<parents.length; i++){
+    expect(parents[i]).toHaveClass('outter');
+    expect(parents[i]).toContainHTML('<div class="inner">Test</div>');
+  }
+});
+
+test("without the '<' direct parent operator it should behave like document.querySelectorAll", () => {
+  document.body.innerHTML =
+  '<div id="one">' +
+    '<div id="two">' +
+      '<div id="three">Hello World</div>' +
+    '</div>' +
+  '</div>';
+  const elements = querySelectorAll("#one > #two > #three");
+  expect(elements.length).toBe(1);
+  for(let i = 0; i<elements.length; i++){
+    expect(elements[i]).toHaveAttribute('id', "three");
+  }
+});
+
+test("without the '<' direct parent operator it should behave like document.querySelectorAll", () => {
+  document.body.innerHTML =
+  '<div id="one">' +
+    '<div id="two">' +
+      '<div id="three">Hello World</div>' +
+    '</div>' +
+  '</div>';
+  const elements = querySelectorAll("#one > #two > #three");
+  expect(elements.length).toBe(1);
+  for(let i = 0; i<elements.length; i++){
+    expect(elements[i]).toHaveAttribute('id', "three");
+  }
+});
+
+test("without the '<' direct parent operator it should behave like document.querySelectorAll", () => {
+  document.body.innerHTML =
+  '<div id="outter">' +
+    '<div id="middle">' +
+      '<div id="inner">Test</div>' +
+    '</div>' +
+  '</div>';
+  const elements = querySelectorAll("#outter > #middle ");
+  expect(elements.length).toBe(1);
+  for(let i = 0; i<elements.length; i++){
+    expect(elements[i]).toHaveAttribute('id', "middle");
+  }
+});
+
+test("without the '<' direct parent operator it should behave like document.querySelectorAll", () => {
+  document.body.innerHTML =
+  '<div id="outter">' +
+    '<div class="middle">' +
+      '<div class="inner">Test</div>' +
+    '</div>' +
+    '<div class="middle">' +
+      '<div class="inner">Test</div>' +
+    '</div>' +
+    '<div class="middle">' +
+      '<div class="inner">Test</div>' +
+    '</div>' +
+  '</div>';
+  const elements = querySelectorAll(".middle .inner ");
+  expect(elements.length).toBe(3);
+  for(let i = 0; i<elements.length; i++){
+    expect(elements[i]).toHaveClass('inner');
+  }
+});
+
+

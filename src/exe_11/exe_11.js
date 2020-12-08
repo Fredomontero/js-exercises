@@ -5,6 +5,9 @@
  */
 const querySelectorAll = (selector) => {
   let [parentSelector, childSelector] = selector.split("<");
+  // console.log("Parent Selector: ", parentSelector);
+  // console.log("Children Selector: ", childSelector);
+  if(childSelector === undefined) return document.querySelectorAll(selector);
   let matches = document.querySelectorAll(parentSelector + ">" + childSelector);
   let elements = Object.entries(matches).map(([key, item]) => {
     let parent = item.parentElement
@@ -16,5 +19,5 @@ const querySelectorAll = (selector) => {
 
 module.exports = querySelectorAll;
 
-// result = querySelectorAll("#one < #two > #four");
+// result = querySelectorAll("#one > #two > #three");
 // console.log("The result is: ", result);
