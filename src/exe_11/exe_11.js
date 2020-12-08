@@ -13,5 +13,7 @@ const querySelectorAll = (selector) => {
 
 module.exports = querySelectorAll;
 
-// result = querySelectorAll("#one < #two > #four");
+// result = querySelectorAll("#one > #two > #three");
 // console.log("The result is: ", result);
+
+
