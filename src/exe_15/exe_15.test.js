@@ -36,3 +36,9 @@ test("Should return -1 for input [7, 1, 4, 3, 9, 1, 8, 4, 3, 1, 1, 1]", () => {
   let result = balanceSum(numbers);
   expect(result).toBe(-1);
 });
+
+test("Should return -1 for input [7, 2, 4, 3, 9, 1, 6]", () => {
+  const numbers = [7, 2, 3, 3, 9, 1, 6];
+  let result = balanceSum(numbers);
+  expect(result).toBe(-1);
+});
