@@ -1,15 +1,3 @@
-let matrix = [
-  [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-  [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0]
-];
-
 /**
  * Function that returns the greatest area formed by rectangles of 1's
  * 
@@ -25,7 +13,6 @@ const greatestArea = (matrix) => {
       else state[j] = state[j] === undefined ? 0 + matrix[i][j] : state[j] + matrix[i][j];
     }
     area = largestAreaPerRow(state);
-    console.log("Area: ", area);
     if(area > maxArea) maxArea = area;
   }
   return maxArea;
@@ -70,5 +57,4 @@ const calculateArea = (index, heights, stack) => {
   return height * width;
 };
 
-let result = greatestArea(matrix);
-console.log("Result: ", result);
+module.exports = greatestArea;
