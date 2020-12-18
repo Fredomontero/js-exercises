@@ -21,11 +21,7 @@ const isPalindrome = (node) => {
       stack.push(ptr1.data);
     } 
   }
-  console.log("Ptr1.data: ", ptr1.data);
-  console.log("Count: ", count);
-  console.log("Stack: ", stack);
   if(count - visited !== visited) stack.pop();
-  console.log("Stack: ", stack);
   while(stack.length > 0){
     ptr1 = ptr1.next;
     if(ptr1.data !== " ")
