@@ -4,34 +4,16 @@ const ListNode = require('./ListNode');
 const isPalindrome = require('./exe_17');
 
 test("should return true", () => {
-  let node1 = new ListNode("a");
-  let node2 = new ListNode("t");
-  let node3 = new ListNode("a");
-  let node4 = new ListNode("r");
-  let node5 = new ListNode(" ");
-  let node6 = new ListNode("a");
-  let node7 = new ListNode(" ");
-  let node8 = new ListNode("l");
-  let node9 = new ListNode("a");
-  let node10 = new ListNode(" ");
-  let node11 = new ListNode("r");
-  let node12 = new ListNode("a");
-  let node13 = new ListNode("t");
-  let node14 = new ListNode("a");
+  let node1 = new ListNode(1);
+  let node2 = new ListNode(2);
+  let node3 = new ListNode(3);
+  let node4 = new ListNode(2);
+  let node5 = new ListNode(1);
 
   node1.next = node2;
   node2.next = node3;
   node3.next = node4;
   node4.next = node5;
-  node5.next = node6;
-  node6.next = node7;
-  node7.next = node8;
-  node8.next = node9;
-  node9.next = node10;
-  node10.next = node11;
-  node11.next = node12;
-  node12.next = node13;
-  node13.next = node14;
 
   let list = new LinkedList(node1);
   const result = isPalindrome(list.head);
@@ -81,11 +63,11 @@ test("should return true", () => {
 });
 
 test("should return false", () => {
-  let node1 = new ListNode("p");
+  let node1 = new ListNode("psds");
   let node2 = new ListNode("e");
-  let node3 = new ListNode("r");
+  let node3 = new ListNode("rsdjk");
   let node4 = new ListNode("r");
-  let node5 = new ListNode("o");
+  let node5 = new ListNode("ooooo");
 
   node1.next = node2;
   node2.next = node3;
@@ -98,34 +80,12 @@ test("should return false", () => {
 });
 
 test("should return true", () => {
-  let node1 = new ListNode(" ");
-  let node2 = new ListNode(" ");
-  let node3 = new ListNode(" ");
-  let node4 = new ListNode(" ");
-  let node5 = new ListNode(" ");
-  let node6 = new ListNode(" ");
-  let node7 = new ListNode(" ");
-  let node8 = new ListNode("a");
-  let node9 = new ListNode("n");
-  let node10 = new ListNode("a");
-  let node11 = new ListNode(" ");
-  let node12 = new ListNode(" ");
-  let node13 = new ListNode(" ");
-  let node14 = new ListNode(" ");
+  let node1 = new ListNode("Hello");
+  let node2 = new ListNode("World");
+  let node3 = new ListNode("Hello");
 
   node1.next = node2;
   node2.next = node3;
-  node3.next = node4;
-  node4.next = node5;
-  node5.next = node6;
-  node6.next = node7;
-  node7.next = node8;
-  node8.next = node9;
-  node9.next = node10;
-  node10.next = node11;
-  node11.next = node12;
-  node12.next = node13;
-  node13.next = node14;
 
   let list = new LinkedList(node1);
   const result = isPalindrome(list.head);
@@ -143,4 +103,15 @@ test("should return false", () => {
   let list = new LinkedList(node1);
   const result = isPalindrome(list.head);
   expect(result).toBe(false);
+});
+
+test("should return true", () => {
+  let node1 = new ListNode("Hello");
+  let node2 = new ListNode("Hello");
+
+  node1.next = node2;
+
+  let list = new LinkedList(node1);
+  const result = isPalindrome(list.head);
+  expect(result).toBe(true);
 });
