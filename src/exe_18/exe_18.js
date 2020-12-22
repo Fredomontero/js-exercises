@@ -9,7 +9,7 @@ const set = (obj, path, value) => {
   let properties = path.split(".");
   properties.forEach( (property, index, properties) => {
     if(!obj.hasOwnProperty([property])) obj[property] = {};
-    if((typeof obj[property] !== "object" || Object.isFrozen(obj) || obj[property] instanceof Array) && properties[index + 1] !== undefined) 
+    if((!obj[property] instanceof Object || Object.isFrozen(obj)) && properties[index + 1] !== undefined) 
       throw new Error("Path key cannot be created or assigned");
     if(properties[index + 1]) obj = obj[property];
     else obj[property] = value;

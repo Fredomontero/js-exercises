@@ -62,3 +62,15 @@ test("Should throw an error", () => {
     expect(error.message).toBe('Path key cannot be created or assigned');
   }
 });
+
+test("should assign 1 to obj.a.b.c", () => {
+  const obj = {a: [2]};
+  set(obj, 'a.b.c', 1);
+  expect(obj.a.b.c).toBe(1);
+});
+
+test("should assign 25 to obj.a.b.c", () => {
+  const obj = {a: function greeting(){console.log("Hello World")}};
+  set(obj, 'a.b.c', 25);
+  expect(obj.a.b.c).toBe(25);
+});
