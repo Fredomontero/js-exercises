@@ -40,3 +40,25 @@ test("should modify value of user.personalInfo.name to 'Alfredo'", () => {
   set(user, 'personalInfo.name', "Alfredo");
   expect(user.personalInfo.name).toBe("Alfredo");
 });
+
+test("Should throw an error", () => {
+  const obj = {
+    a: 1
+  };
+  try{
+    set(obj, 'a.b.c', 3);
+  }catch(error){
+    expect(error).toBe('Path key cannot be created or assigned');
+  }
+});
+
+test("Should throw an error", () => {
+  const obj = {
+    a: Object.freeze({})
+  };
+  try{
+    set(obj, 'a.b.c', 1);
+  }catch(error){
+    expect(error).toBe('Path key cannot be created or assigned');
+  }
+});

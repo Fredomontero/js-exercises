@@ -11,6 +11,7 @@ const set = (obj, path, value) => {
   
   const assign = (currentObject, index) => {
     if(!currentObject.hasOwnProperty([properties[index]])) currentObject[properties[index]] = {};
+    if((typeof currentObject[properties[index]] !== "object" || Object.isFrozen(currentObject)) && properties[index + 1] !== undefined) throw "Path key cannot be created or assigned"
     if(properties[index + 1]) assign(currentObject[properties[index]], index + 1);
     else{
       currentObject[properties[index]] = value;
