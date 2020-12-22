@@ -6,19 +6,14 @@
  * @param {*} value - Value to assign to the nwe property
  */
 const set = (obj, path, value) => {
-  let index = 0;
   let properties = path.split(".");
-  
-  const assign = (currentObject, index) => {
-    if(!currentObject.hasOwnProperty([properties[index]])) currentObject[properties[index]] = {};
-    if((typeof currentObject[properties[index]] !== "object" || Object.isFrozen(currentObject) || currentObject[properties[index]] instanceof Array) && properties[index + 1] !== undefined) 
-      throw "Path key cannot be created or assigned"
-    if(properties[index + 1]) assign(currentObject[properties[index]], index + 1);
-    else{
-      currentObject[properties[index]] = value;
-    }
-  }
-  assign(obj, index);
+  properties.forEach( (property, index, properties) => {
+    if(!obj.hasOwnProperty([property])) obj[property] = {};
+    if((typeof obj[property] !== "object" || Object.isFrozen(obj) || obj[property] instanceof Array) && properties[index + 1] !== undefined) 
+      throw new Error("Path key cannot be created or assigned");
+    if(properties[index + 1]) obj = obj[property];
+    else obj[property] = value;
+  });
 }
 
 module.exports = set;

@@ -48,7 +48,7 @@ test("Should throw an error", () => {
   try{
     set(obj, 'a.b.c', 3);
   }catch(error){
-    expect(error).toBe('Path key cannot be created or assigned');
+    expect(error.message).toBe('Path key cannot be created or assigned');
   }
 });
 
@@ -59,6 +59,6 @@ test("Should throw an error", () => {
   try{
     set(obj, 'a.b.c', 1);
   }catch(error){
-    expect(error).toBe('Path key cannot be created or assigned');
+    expect(error.message).toBe('Path key cannot be created or assigned');
   }
 });
