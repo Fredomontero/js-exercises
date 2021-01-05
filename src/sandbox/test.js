@@ -1,10 +1,11 @@
-let globalFunction;
-
-{
-  let blockVar = 'a';
-  globalFunction = function(){
-    console.log(blockVar);
+const counter = () => {
+  let count = 0;
+  return function() {
+    return count++;
   }
 }
 
-globalFunction();
+let cnt1 = counter();
+console.log(cnt1());
+console.log(cnt1());
+console.log(cnt1());
