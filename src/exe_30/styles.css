@@ -1,0 +1,88 @@
+body{
+  text-align: center;
+  margin-top: 200px;
+}
+
+/* .fancy-button{
+  border: 1px solid #000;
+  background-color: #dbdbdb;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 20px 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.fancy-button:before{
+  border: 1px solid #000;
+  background-color: #dbdbdb;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 25px 45px;
+  width: 100%;
+} */
+
+/* .fancy-button{
+  background-color: #dbdbdb;
+  border: 2px solid #000;
+  padding: 1.5em 3em;
+  width: 16em;
+  height: 16em;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 10px;
+} */
+
+/* .fancy-button:before{
+  background: none;
+  border: 2px solid #000;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: 10px;
+} */
+
+.fancy-button {
+  /* Text */
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+  font-size:26px;
+  font-family: arial;
+  letter-spacing: -1px;
+  text-shadow: 0 1px 0 #DEDEDE;
+  /* button box */
+  height:60px;
+  padding:0 30px;
+  border: 1px solid #ABABAB;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px #616161, 0 0 0 6px #CBCBCB, 0 0 0 8px #fff, 0 0 0 10px #666, 0 5px 7px 7px #D1D1D1, inset 0 28px 0 rgba(255,255,255, .2);
+  /* Background*/
+  background: linear-gradient(to bottom, #e3e3e3 0%, #d2d2d2 50%, #c6c6c6 51%, #adadad 100%);
+  /* Position*/
+  position: relative;
+}
+
+/* Pseudo Elements*/
+.fancy-button::before, 
+.fancy-button::after {
+  content: "★";
+}
+.fancy-button::before {
+  margin-right: 15px;
+}
+.fancy-button::after {
+  margin-left: 15px;
+}
+
+.space{
+  margin-bottom: 200px;
+}
